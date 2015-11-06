@@ -2,7 +2,7 @@
 # Cookbook Name:: passenger_apache2_test
 # Recipe:: package
 #
-# Copyright 2013, Opscode, Inc.
+# Copyright 2013-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,4 +27,4 @@ node.set['passenger']['package']['name'] = case node['platform_family']
                                              'mod_passenger'
                                            end
 
-include_recipe "passenger_apache2::default"
+include_recipe 'passenger_apache2::default'

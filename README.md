@@ -1,32 +1,28 @@
 passenger_apache2 Cookbook
 ==========================
 
-Installs passenger for Apache 2.
+[![Build Status](https://travis-ci.org/chef-cookbooks/passenger_apache2.svg?branch=master)](http://travis-ci.org/chef-cookbooks/passenger_apache2)
+[![Cookbook Version](https://img.shields.io/cookbook/v/passenger_apache2.svg)](https://supermarket.chef.io/cookbooks/passenger_apache2)
+
+Installs Phusion Passenger Ruby application server for Apache 2.
 
 
 Requirements
 ------------
+#### Platforms
+- Debian/Ubuntu
+- RHEL/CentOS/Scientific/Amazon/Oracle
+- Fedora
+- Arch
+- openSUSE/SLES
 
-Requires Chef 0.10.10+ and Ohai 0.6.10+ for `platform_family` attribute use.
+#### Chef
+- Chef 11+
 
-### Platforms
-Tested on the following platforms:
+#### Cookbooks
+- apache2 >= 2.0.0
+- build-essential
 
-- Ubuntu 10.04, 12.04
-- CentOS 5, 6
-
-The source install method was used on CentOS. See the `.kitchen.yml` file for platform testing matrix.
-
-This cookbook may work on other platforms with or without local modification.
-
-**Note**: This cookbook is not yet supported on Ubuntu 14.04, which uses Apache HTTPD 2.4.
-
-### Cookbooks
-
-The following cookbooks are used as dependencies:
-
-- [apache2](https://supermarket.chef.io/cookbooks/apache2)
-- [build-essential](https://supermarket.chef.io/cookbooks/build-essential)
 
 Attributes
 ----------
@@ -89,6 +85,14 @@ end
 
 A sample config template is provided, `web_app.conf.erb`. If this is suitable for your application, add 'cookbook "passenger"' to the define above to use that template. Otherwise, copy the template to the cookbook where you're using `web_app`, and modify as needed. The cookbook parameter is optional, if omitted it will search the cookbook where the define is used.
 
+Known Issues
+-----
+
+When run as a daemonized process under init on linux, using
+https://github.com/opscode-cookbooks/chef-client/blob/master/recipes/init_service.rb for example,
+the /sbin/service script scrubs the environment, including the HOME environment variable.
+In some versions, Passenger depends on the HOME environment variable to be present.
+This can be worked around by setting the necessary environment variables directly in your recipes.
 
 License & Authors
 -----------------
@@ -98,8 +102,7 @@ License & Authors
 - Author: Chris Roberts (<chrisroberts.code@gmail.com>)
 
 ```text
-Copyright: 2009-2013, Opscode, Inc
-Copyright: 2014, Chef Software, Inc.
+Copyright: 2009-2015, Chef Software, Inc
 Copyright: 2009, 37signals
 Copright: 2009, Michael Hale
 
